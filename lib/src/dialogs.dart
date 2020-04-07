@@ -107,10 +107,12 @@ class RateMyAppDialog extends StatelessWidget {
     @required DialogStyle dialogStyle,
     DialogActionsBuilder actionsBuilder,
     VoidCallback onDismissed,
+    Widget Function(BuildContext context, Widget child) builder,
   }) async {
+    builder ??= (_, child) => child;
     RateMyAppDialogButton clickedButton = await showDialog<RateMyAppDialogButton>(
       context: context,
-      builder: (context) => RateMyAppDialog(
+      builder: (context) => builder(context, RateMyAppDialog(
         rateMyApp,
         title: title,
         message: message,
@@ -120,7 +122,7 @@ class RateMyAppDialog extends StatelessWidget {
         laterButton: laterButton,
         listener: listener,
         dialogStyle: dialogStyle,
-      ),
+      )),
     );
 
     if (clickedButton == null && onDismissed != null) {
@@ -200,17 +202,19 @@ class RateMyAppStarDialog extends StatefulWidget {
     @required DialogStyle dialogStyle,
     @required StarRatingOptions starRatingOptions,
     VoidCallback onDismissed,
+    Widget Function(BuildContext context, Widget child) builder,
   }) async {
+    builder ??= (_, child) => child;
     RateMyAppDialogButton clickedButton = await showDialog(
       context: context,
-      builder: (context) => RateMyAppStarDialog(
+      builder: (context) => builder(context, RateMyAppStarDialog(
         rateMyApp,
         title: title,
         message: message,
         actionsBuilder: actionsBuilder,
         dialogStyle: dialogStyle,
         starRatingOptions: starRatingOptions,
-      ),
+      )),
     );
 
     if (clickedButton == null && onDismissed != null) {

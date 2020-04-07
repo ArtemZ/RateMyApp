@@ -106,6 +106,7 @@ class RateMyApp {
     bool ignoreIOS = false,
     DialogStyle dialogStyle,
     VoidCallback onDismissed,
+    Widget Function(BuildContext context, Widget child) builder,
   }) async {
     if (!ignoreIOS && Platform.isIOS && await _channel.invokeMethod('canRequestReview')) {
       unawaited(callEvent(RateMyAppEventType.iOSRequestReview));
@@ -125,6 +126,7 @@ class RateMyApp {
       listener: listener,
       dialogStyle: dialogStyle ?? const DialogStyle(),
       onDismissed: onDismissed,
+      builder: builder,
     );
   }
 
@@ -138,6 +140,7 @@ class RateMyApp {
     DialogStyle dialogStyle,
     StarRatingOptions starRatingOptions,
     VoidCallback onDismissed,
+    Widget Function(BuildContext context, Widget child) builder,
   }) async {
     if (!ignoreIOS && Platform.isIOS && await _channel.invokeMethod('canRequestReview')) {
       unawaited(callEvent(RateMyAppEventType.iOSRequestReview));
@@ -160,6 +163,7 @@ class RateMyApp {
           ),
       starRatingOptions: starRatingOptions ?? const StarRatingOptions(),
       onDismissed: onDismissed,
+      builder: builder,
     );
   }
 
